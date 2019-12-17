@@ -19,6 +19,7 @@ from users import views as users_view
 from topics import views as topics_view
 from questions import views as questions_view
 from exams import views as exams_view
+from examinees import views as examinees_view
 
 urlpatterns = [
 	# admin urls
@@ -53,6 +54,9 @@ urlpatterns = [
     path('select_questions/<int:exam_id>/<int:topic_id>', exams_view.select_questions, name='select_questions'),
     path('set_exam_questions/<int:exam_id>/<int:topic_id>', exams_view.set_exam_questions, name='set_exam_questions'),
 
-
-
+    # Examinee urls
+    path('examinees/', examinees_view.index, name='examinees'),
+    path('examinee_login/', examinees_view.user_login, name='examinee_login'),
+    path('start_exam/<int:exam_id>/<str:name>/<str:email>', examinees_view.start_exam, name='start_exam' ),
+    path('submit_answer/<int:exam_id>/<int:examinee_id>/<int:question_id>/<int:counter>',examinees_view.submit_answer, name='submit_answer'),
 ]

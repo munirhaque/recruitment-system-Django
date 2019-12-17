@@ -1,0 +1,22 @@
+{% extends '../layouts/examinee_master.html' %}
+
+{% block title %} Exam Rules {% endblock %}
+
+{% block content-title %} All Available Exams{% endblock%}
+
+ {% block content %}
+  {% for exam in exams %}
+    <p>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <b>Exam name: </b>{{exam.name}}<br/>
+          <b>Start Date: </b>{{exam.start_date}}<br/>
+          <b>Deadline: </b>{{exam.end_date}}<br/>
+          <b>Time Duration: </b>{{exam.time_duration}}<br/>
+          <b>Number of Question: </b>{{exam.number_of_question}}<br/>
+          <a href="{% url 'start_exam' exam.id name email %}" class="btn btn-info">Take Test</a>
+        </div>
+      </div>
+    </p>
+  {% endfor %}
+{% endblock %}

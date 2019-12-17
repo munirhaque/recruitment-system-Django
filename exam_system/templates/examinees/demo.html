@@ -1,0 +1,21 @@
+{% extends '../layouts/examinee_master.html' %}
+
+{% block title %} Exam Rules {% endblock %}
+
+{% block content-title %} Question:  {{counter}}{% endblock%}
+
+ {% block content %}
+ 
+    {{question.question}}
+    <br/>
+    <b>Answers:</b>
+    <br/>
+    <form action="{% url 'submit_answer' exam_id examinee_id question.id counter %}" method="post">
+      {% csrf_token %}
+      {% for option in options %}
+      <label><input type="radio" name="answer" value="{{option.id}}" required="required">{{option.option}}</label>
+      <br/>
+      {% endfor %}
+    <input type="submit" class="btn btn-info" value="Next Question">
+    </form>
+{% endblock %}
