@@ -1,0 +1,73 @@
+{% extends '../layouts/master.html' %}
+
+{% block title %}Questions{% endblock %}
+
+{% block extra-style-scripts %}
+  <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block content-header %}  Questions {% endblock %}
+
+{% block breadcrumb %}
+      <li><a href="#"><i class="fa fa-dashboard"></i> Topics</a></li> 
+{% endblock %}
+
+{% block content-title %} <b>Topic:</b> {{topic.topic_name}} {% endblock %}
+
+{% block content %}
+{% if msg %}
+  <p>
+    <div class="alert alert-success" role="alert">Topic Added</div>
+  </p>
+{% endif %}
+<p>
+  <a href="{% url 'question_add' topic.id %}" class="btn btn-info topic-add">Add Questions</a>
+</p>
+<table id="topicsTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>S/N</th>
+                <th>Question</th>
+                <th>Manage Options</th>
+                <th>Set Answer</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for question in questions %}
+                <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{question.question}}</td>
+                      <td><a href="{% url 'option_add' topic.id question.id %}" class="btn btn-primary">Manage Options</a></td>
+                      <td><a href="{% url 'set_answer' topic.id question.id %}" class="btn btn-info">Set Answer</a></td>
+                      <td><a href="#" class="btn btn-warning">Update</a></td>
+                      <td><a href="#" class="btn btn-danger">Delete</a></td>
+                  </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>S/N</th>
+                <th>Question</th>
+                <th>Manage Options</th>
+                <th>Set Answer</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}
+
+
+{% block extra-scripts %}
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+{% endblock %}
+
+{% block custom-scripts %}
+  <script type="text/javascript">
+    $(document).ready( function () {
+        $('#topicsTable').DataTable();
+      } );
+  </script>
+{% endblock %}

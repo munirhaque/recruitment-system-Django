@@ -1,0 +1,36 @@
+{% extends '../layouts/master.html' %}
+
+{% block title %}Set Answer{% endblock %}
+
+{% block extra-style-scripts %}
+  <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block content-header %} Set Answer {% endblock %}
+
+{% block breadcrumb %}
+      <li><a href="#"><i class="fa fa-dashboard"></i> Topics</a></li> 
+      <li><a href="#"><i class="fa fa-dashboard"></i> Add Topics</a></li>
+{% endblock %}
+
+{% block content-title %} Set Answer{% endblock %}
+
+{% block content %}
+<p>
+  <b>Question: </b>{{question.question}}
+</p>
+  <form action="{% url 'select_answer' topic_id question.id %}" method="post">
+    {% csrf_token %}
+    {% for option in options%}
+    <div class="radio">
+      <label><input type="radio" name="answer" value="{{option.id}}" {% if option.is_answer == 1 %} 
+        checked {% endif %}>{{option.option}}</label>
+    </div>
+    {% endfor %}
+    <div class="form-group">
+        <input type="submit" class="btn btn-info" value="Set As Answer">
+    </div>
+  </form>
+<br>
+{% endblock %}
+            

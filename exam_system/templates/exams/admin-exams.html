@@ -1,0 +1,82 @@
+{% extends '../layouts/master.html' %}
+
+{% block title %}Exams{% endblock %}
+
+{% block extra-style-scripts %}
+  <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block content-header %} Exams {% endblock %}
+
+{% block breadcrumb %}
+      <li><a href="#"><i class="fa fa-dashboard"></i> Topics</a></li> 
+{% endblock %}
+
+{% block content-title %} All Exams{% endblock %}
+
+{% block content %}
+{% if msg %}
+  <p>
+    <div class="alert alert-success" role="alert">Exam Added</div>
+  </p>
+{% endif %}
+<p>
+  <a href="{% url 'create_exam' %}" class="btn btn-info topic-add">Add Exam</a>
+</p>
+<table id="topicsTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>S/N</th>
+                <th>Exam </th>
+                <th>Number Of Questions</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Time Duration</th>
+                <th>Set Questions</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for exam in exams %}
+                <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{exam.name}}</td>
+                      <td>{{exam.number_of_question}}</td>
+                      <td>{{exam.start_date}}</td>
+                      <td>{{exam.end_date}}</td>
+                      <td>{{exam.time_duration}}</td>
+                      <td><a href="{% url 'select_topic' exam.id %}" class="btn btn-info">Set Questions</a></td>
+                      <td><a href="#" class="btn btn-warning">Edit</a></td>
+                      <td><a href="#" class="btn btn-danger">Delete</a></td>
+                  </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>S/N</th>
+                <th>Exam </th>
+                <th>Number Of Questions</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Time Duration</th>
+                <th>Set Questions</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}
+
+
+{% block extra-scripts %}
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+{% endblock %}
+
+{% block custom-scripts %}
+  <script type="text/javascript">
+    $(document).ready( function () {
+        $('#topicsTable').DataTable();
+      } );
+  </script>
+{% endblock %}

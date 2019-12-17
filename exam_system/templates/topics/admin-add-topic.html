@@ -1,0 +1,30 @@
+{% extends '../layouts/master.html' %}
+
+{% block title %}Add Topic{% endblock %}
+
+{% block extra-style-scripts %}
+  <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block content-header %} Topics {% endblock %}
+
+{% block breadcrumb %}
+      <li><a href="#"><i class="fa fa-dashboard"></i> Topics</a></li> 
+      <li><a href="#"><i class="fa fa-dashboard"></i> Add Topics</a></li>
+{% endblock %}
+
+{% block content-title %} Add Topics{% endblock %}
+
+{% block content %}
+  <form action="topic_store" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>Topic Name: </label>
+        <input type="text" name="topic_name" class="form-control" required="required">
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-info" value="Create Topic">
+    </div>
+  </form>
+{% endblock %}
+            

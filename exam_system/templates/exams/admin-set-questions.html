@@ -1,0 +1,36 @@
+{% extends '../layouts/master.html' %}
+
+{% block title %}Add Exam{% endblock %}
+
+{% block extra-style-scripts %}
+  <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block content-header %} Exam {% endblock %}
+
+{% block breadcrumb %}
+      <li><a href="#"><i class="fa fa-dashboard"></i> Exams</a></li> 
+      <li><a href="#"><i class="fa fa-dashboard"></i> Create Exam</a></li>
+{% endblock %}
+
+{% block content-title %} Add New Exams{% endblock %}
+
+{% block content %}
+<p>
+  Topic Name: {{ topic.topic_name }}
+  <br/>
+  Total Questions: {{ total_questions }}
+</p>
+  <form action="{% url 'set_exam_questions' exam_id topic.id  %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>Number of Questions: </label>
+        <input type="number" name="number_of_questions" max="{{total_questions}}" class="form-control" required="required">
+    </div>
+   
+    <div class="form-group">
+        <input type="submit" class="btn btn-info" value="Set Questions">
+    </div>
+  </form>
+{% endblock %}
+            

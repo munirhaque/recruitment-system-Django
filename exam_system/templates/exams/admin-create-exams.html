@@ -1,0 +1,47 @@
+{% extends '../layouts/master.html' %}
+
+{% block title %}Add Exam{% endblock %}
+
+{% block extra-style-scripts %}
+  <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block content-header %} Exam {% endblock %}
+
+{% block breadcrumb %}
+      <li><a href="#"><i class="fa fa-dashboard"></i> Exams</a></li> 
+      <li><a href="#"><i class="fa fa-dashboard"></i> Create Exam</a></li>
+{% endblock %}
+
+{% block content-title %} Add New Exams{% endblock %}
+
+{% block content %}
+
+  <form action="{% url 'save_exam' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>Exam Name: </label>
+        <input type="text" name="exam_name" class="form-control" required="required">
+    </div>
+    <div class="form-group">
+      <label>Exam Start Date: </label>
+        <input type="date" name="start_date" class="form-control" min="{% now 'Y/m/d' %}" required="required">
+    </div>
+    <div class="form-group">
+      <label>Exam End Date: </label>
+        <input type="date" name="end_date" class="form-control" required="required">
+    </div>
+    <div class="form-group">
+      <label>Number of Questions: </label>
+        <input type="number" name="number_of_questions" class="form-control" required="required">
+    </div>
+    <div class="form-group">
+      <label>Time Duration(minute): </label>
+        <input type="number" name="time_duration" class="form-control" required="required">
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-info" value="Create Exam">
+    </div>
+  </form>
+{% endblock %}
+            

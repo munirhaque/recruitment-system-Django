@@ -1,0 +1,8 @@
+.form-group.required .control-label:before {
+  content:"*";
+  color:red;
+}
+
+.add-member{
+	margin-bottom: 5px;
+}

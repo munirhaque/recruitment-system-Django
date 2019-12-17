@@ -1,0 +1,70 @@
+{% extends '../layouts/master.html' %}
+
+{% block title %}Topics{% endblock %}
+
+{% block extra-style-scripts %}
+  <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block content-header %} Topics {% endblock %}
+
+{% block breadcrumb %}
+      <li><a href="#"><i class="fa fa-dashboard"></i> Topics</a></li> 
+{% endblock %}
+
+{% block content-title %} All Topics{% endblock %}
+
+{% block content %}
+{% if msg %}
+  <p>
+    <div class="alert alert-success" role="alert">Topic Added</div>
+  </p>
+{% endif %}
+<p>
+  <a href="{% url 'topic_add' %}" class="btn btn-info topic-add">Add Topic</a>
+</p>
+<table id="topicsTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>S/N</th>
+                <th>Topic name</th>
+                <th>Manage Questions</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for topic in topics %}
+                <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{topic.topic_name}}</td>
+                      <td><a href="{% url 'topic_questions' topic.id %}" class="btn btn-info">Manage Questions</a></td>
+                      <td><a href="{% url 'topic_edit' topic.id %}" class="btn btn-warning">Update</a></td>
+                      <td><a href="{% url 'topic_delete' topic.id %}" class="btn btn-warning">Delete</a></td>
+                  </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>S/N</th>
+                <th>Topic name</th>
+                <th>Manage Questions</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}
+
+
+{% block extra-scripts %}
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+{% endblock %}
+
+{% block custom-scripts %}
+  <script type="text/javascript">
+    $(document).ready( function () {
+        $('#topicsTable').DataTable();
+      } );
+  </script>
+{% endblock %}

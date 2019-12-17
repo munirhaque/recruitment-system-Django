@@ -1,0 +1,12 @@
+{% extends 'layouts/master.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+
+
+{% block content %}
+	<b>{{ request.user.username }}</b>
+	<br/>
+	{{request.user.is_authenticated}}
+	<br/>
+{% endblock %}

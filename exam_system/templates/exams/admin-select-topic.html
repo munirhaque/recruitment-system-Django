@@ -1,0 +1,64 @@
+{% extends '../layouts/master.html' %}
+
+{% block title %}Topics{% endblock %}
+
+{% block extra-style-scripts %}
+  <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block content-header %} Topics {% endblock %}
+
+{% block breadcrumb %}
+      <li><a href="#"><i class="fa fa-dashboard"></i> Exams</a></li> 
+      <li><a href="#"><i class="fa fa-dashboard"></i> Create Exam</a></li>
+{% endblock %}
+
+{% block content-title %} Select Topic {% endblock %}
+
+{% block content %}
+<p>
+  Number of Exam Question: {{exam.number_of_question}}
+</p>
+<p>
+  Question Set: {{questions_set}}
+</p>
+  <table id="topicsTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>S/N</th>
+                <th>Topic </th>
+                <th>Select Questions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for topic in topics %}
+                <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{topic.topic_name}}</td>
+                      <td><a href="{% url 'select_questions' exam_id topic.id %}" class="btn btn-info">Select Questions</a></td>
+
+                  </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>S/N</th>
+                <th>Topic </th>
+                <th>Select Questions</th>
+            </tr>
+        </tfoot>
+    </table>
+
+{% endblock %}
+
+{% block extra-scripts %}
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+{% endblock %}
+
+{% block custom-scripts %}
+  <script type="text/javascript">
+    $(document).ready( function () {
+        $('#topicsTable').DataTable();
+      } );
+  </script>
+{% endblock %}

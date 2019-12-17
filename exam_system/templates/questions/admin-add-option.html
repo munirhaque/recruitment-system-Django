@@ -1,0 +1,45 @@
+{% extends '../layouts/master.html' %}
+
+{% block title %}Add Option{% endblock %}
+
+{% block extra-style-scripts %}
+  <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block content-header %} Add Option {% endblock %}
+
+{% block breadcrumb %}
+      <li><a href="#"><i class="fa fa-dashboard"></i> Topics</a></li> 
+      <li><a href="#"><i class="fa fa-dashboard"></i> Add Topics</a></li>
+{% endblock %}
+
+{% block content-title %} Add Option{% endblock %}
+
+{% block content %}
+<p>
+  <b>Question: </b>{{question.question}}
+</p>
+  <form action="{% url 'option_store' topic_id question.id %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>Option: </label>
+        <textarea type="text" cols="10" rows="10" name="option" class="form-control" required="required"></textarea>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-info" value="Add Option">
+        <a href="{% url 'topic_questions' topic_id %}" class="btn btn-danger pull-right">Go Back</a>
+    </div>
+
+  </form>
+
+<br>
+
+{% for option in options%}
+  <p>
+    Option {{ forloop.counter }}. {{ option.option }}
+      <hr>
+  </p>
+{% endfor %}
+
+{% endblock %}
+            
