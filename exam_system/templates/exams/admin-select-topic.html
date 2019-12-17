@@ -17,11 +17,9 @@
 
 {% block content %}
 <p>
-  Number of Exam Question: {{exam.number_of_question}}
+  <h4><b>Number of Exam Question:</b> {{exam.number_of_question}}</h4> 
 </p>
-<p>
-  Question Set: {{questions_set}}
-</p>
+
   <table id="topicsTable" class="display" style="width:100%">
         <thead>
             <tr>
@@ -35,8 +33,7 @@
                 <tr>
                       <td>{{ forloop.counter }}</td>
                       <td>{{topic.topic_name}}</td>
-                      <td><a href="{% url 'select_questions' exam_id topic.id %}" class="btn btn-info">Select Questions</a></td>
-
+                      <td><a href="{% url 'select_questions' exam.id topic.id %}" class="btn btn-info">Select Questions</a></td>
                   </tr>
           {% endfor %}
         </tbody>

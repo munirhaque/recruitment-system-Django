@@ -18,6 +18,7 @@ from django.urls import path
 from users import views as users_view
 from topics import views as topics_view
 from questions import views as questions_view
+from exams import views as exams_view
 
 urlpatterns = [
 	# admin urls
@@ -43,6 +44,15 @@ urlpatterns = [
     path('option_store/<int:topic_id>/<int:question_id>', questions_view.store_option,name='option_store'),
     path('set_answer/<int:topic_id>/<int:question_id>', questions_view.set_answer,name='set_answer'),
     path('select_answer/<int:topic_id>/<int:question_id>', questions_view.select_answer,name='select_answer'),
+
+    # Exam urls
+    path('exams/', exams_view.index, name='exams'),
+    path('create_exam/', exams_view.create, name='create_exam'),
+    path('save_exam/', exams_view.store, name='save_exam'),
+    path('select_topic/<int:exam_id>', exams_view.select_topic, name='select_topic'),
+    path('select_questions/<int:exam_id>/<int:topic_id>', exams_view.select_questions, name='select_questions'),
+    path('set_exam_questions/<int:exam_id>/<int:topic_id>', exams_view.set_exam_questions, name='set_exam_questions'),
+
 
 
 ]

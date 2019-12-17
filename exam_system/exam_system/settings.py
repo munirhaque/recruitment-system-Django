@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users',
     'topics',
     'questions',
+    'exams'
 
 ]
 
