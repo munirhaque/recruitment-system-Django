@@ -59,4 +59,5 @@ urlpatterns = [
     path('examinee_login/', examinees_view.user_login, name='examinee_login'),
     path('start_exam/<int:exam_id>/<str:name>/<str:email>', examinees_view.start_exam, name='start_exam' ),
     path('submit_answer/<int:exam_id>/<int:examinee_id>/<int:question_id>/<int:counter>',examinees_view.submit_answer, name='submit_answer'),
+    path('view_report/<int:exam_id>/<int:examinee_id>',examinees_view.view_report, name='view_report'),
 ]

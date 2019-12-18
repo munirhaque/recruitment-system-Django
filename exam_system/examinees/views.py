@@ -4,6 +4,7 @@ from datetime import date
 from exams.models import Exam, ExamQuestionTopic
 from examinees.models import Examinee, ExamineeExam
 from questions.models import Question, Options
+from django.db import connection, transaction
 # Create your views here.
 
 def index(request):
@@ -58,7 +59,8 @@ def submit_answer(request, exam_id, examinee_id, question_id, counter ):
 	if counter < total_questions:
 		exam_questions = ExamQuestionTopic.objects.filter(exam_id=exam_id)[start:end].get()
 	elif counter >= total_questions:
-		return render(request, 'examinees/examinee-exam-end.html')
+		exam_end_data = {'exam_id':exam_id, 'examinee_id':examinee_id}
+		return render(request, 'examinees/examinee-exam-end.html', context=exam_end_data)
 
 	question = Question.objects.get(id=exam_questions.question_id) 
 	options= Options.objects.filter(question_id=question.id)
@@ -69,3 +71,18 @@ def submit_answer(request, exam_id, examinee_id, question_id, counter ):
 	return render(request, 'examinees/demo.html', context=exam_data)
 	
 		#return HttpResponse(answer)
+
+def view_report(request, exam_id, examinee_id):
+	cursor = connection.cursor()
+
+	cursor.execute('''SELECT  question, questions_options.option, questions_options.id,
+					answer_id FROM questions_question, 
+					examinees_examineeexam, questions_options WHERE examinee_id = examinee_id 
+					AND exam_id = exam_id AND examinees_examineeexam.question_id = questions_question.id 
+					AND examinees_examineeexam.question_id = questions_options.question_id 
+					AND questions_options.is_answer = 1''')
+	exam_report = cursor.fetchall()
+
+	exam_data = {'exam_report':exam_report}
+	#return HttpResponse(exam_report)
+	return render(request, 'examinees/examinee-exam-report.html', context=exam_data)

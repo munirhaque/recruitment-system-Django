@@ -6,6 +6,9 @@
 
  {% block content %}
  
-  <h2 class="text-success">Thanks to Take the Exam</h2>
-  <h3><a href="{% url 'view_report' exam_id examinee_id %}" class="btn btn-info">Click to view Answer</a></h3>
+  {% for question in exam_report %}
+  	{{ question.question }}
+  	<br/>
+  	{{question.option}}
+  {% endfor %}
 {% endblock %}
