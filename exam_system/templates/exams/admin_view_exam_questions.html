@@ -1,0 +1,25 @@
+{% extends '../layouts/master.html' %}
+
+{% block title %}Add Exam{% endblock %}
+
+{% block extra-style-scripts %}
+  <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block content-header %} Exam {% endblock %}
+
+{% block breadcrumb %}
+      <li><a href="#"><i class="fa fa-dashboard"></i> Exams</a></li> 
+      <li><a href="#"><i class="fa fa-dashboard"></i> View Questions</a></li>
+{% endblock %}
+
+{% block content-title %} Add New Exams{% endblock %}
+
+{% block content %}
+  {% for question in questions %}
+  <p>
+    Question {{ forloop.counter }} :{{question.}}
+  </p>
+
+{% endblock %}
+            

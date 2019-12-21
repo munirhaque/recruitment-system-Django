@@ -4,6 +4,7 @@ from exams.models import Exam, ExamQuestionTopic
 from topics.models import Topic
 from questions.models import Question
 from datetime import date
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -28,8 +29,6 @@ def store(request):
 def select_topic(request, exam_id):
 	topics = Topic.objects.all()
 	exam = Exam.objects.get(id=exam_id)
-	#questions_set = exam.question.all().count()
-	#questions_set = Exam.Question.get(exam_id=exam_id).count()
 	topic_data = {'topics':topics, 'exam':exam }
 	return render(request, 'exams/admin-select-topic.html', context=topic_data)
 
@@ -50,24 +49,11 @@ def set_exam_questions(request, exam_id, topic_id):
 	if request.method == 'POST':
 	   number_of_questions = int(request.POST['number_of_questions'])
 	   select_questions = Question.objects.filter(topic_id=topic_id).order_by('?')[:number_of_questions].only('id')
-	   
-	   #questions = {'selected_questions':select_questions}
-	   #select_questions = Question.objects.filter(topic_id=topic_id).order_by('?')[:number_of_questions].only('id')
-	   #question_data = {'selected_questions':select_questions}
-	   #for question in select_questions:
-	   #exam = Exam.objects.get(id=exam_id)
-	   #exam.topic.objects.create(exam_id=exam_id, topic_id=topic_id)
-	   #questions = None
 	   for question in select_questions:
 	   		ExamQuestionTopic.objects.create(exam_id = exam_id, question_id=question.id, topic_id=topic_id)
-	   	
 	   return redirect('select_topic', exam_id) 
-	   
-	   # for question in select_questions:
-	   # 		exam.question.create(exam_id=exam_id, question_id=question.id)
-	   		#return HttpResponse(question.id)
-	   
-	   #return HttpResponse(select_questions.id)
-	   #MyModel.objects.order_by('?')
-	   #return HttpResponse(str(number_of_questions) + "<br/>" + str(exam_id) + "<br/>" + str(topic_id))
 
+def destroy(request, exam_id):
+	Exam.objects.filter(id=exam_id).delete()
+	messages.success(request, '<div class="alert alert-success">Question Deleted Successfully!</div>')
+	return redirect('exams')

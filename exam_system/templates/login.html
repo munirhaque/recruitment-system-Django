@@ -40,6 +40,11 @@
             <div class="box-header with-border text-center"><h3 class="box-title "><b>Login</b></h3></div>
             <form role="form" action="user_authentication" method="post">
               {% csrf_token %}
+                {% if messages %}
+                  {% for message in messages %}
+                    {{ message|safe }}
+                  {% endfor %}
+                {% endif %}
               <div class="box-body text-center">
                 <div class="form-group" >
                   <label for="username">Username</label>

@@ -9,22 +9,22 @@
 {% block content-header %} Topics {% endblock %}
 
 {% block breadcrumb %}
-      <li><a href="{% url 'topics' %}"><i class="fa fa-dashboard"></i> Topics</a></li> 
-      <li><a href="#"><i class="fa fa-dashboard"></i> Edit Topic</a></li> 
+      <li><a href="#"><i class="fa fa-dashboard"></i> Questions</a></li> 
+      <li><a href="#"><i class="fa fa-dashboard"></i> Edit Question</a></li> 
 {% endblock %}
 
 {% block content-title %} Edit Topic{% endblock %}
 
 {% block content %}
 
-  <form action="{% url 'topic_update' topic.id %}" method="post">
+  <form action="{% url 'update_question' topic_id question.id %}" method="post">
     {% csrf_token %}
     <div class="form-group">
-      <label>Topic Name: </label>
-        <input type="text" name="topic_name" class="form-control" value="{{topic.topic_name}}" required="required">
+      <label>Question: </label>
+        <input type="text" name="question" class="form-control" value="{{question.question}}" required="required">
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-info" value="Edit Topic">
+        <input type="submit" class="btn btn-info" value="Edit Question">
     </div>
   </form>
 {% endblock %}

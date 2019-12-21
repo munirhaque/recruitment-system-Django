@@ -5,8 +5,11 @@
 
 
 {% block content %}
-	<b>{{ request.user.username }}</b>
-	<br/>
-	{{request.user.is_authenticated}}
-	<br/>
+	<div class="row">
+		<div class="col-md-6 text-center"><h3><a href="{% url 'topics' %}"> Manage Topics</a></h3></div>
+		
+		<div class="col-md-6 text-center"><h3><a href="{% url 'exams' %}"> Manage Exams</a></h3> 
+		</div>
+	</div>
+	
 {% endblock %}

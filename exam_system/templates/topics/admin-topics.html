@@ -23,6 +23,15 @@
 <p>
   <a href="{% url 'topic_add' %}" class="btn btn-info topic-add">Add Topic</a>
 </p>
+<p>
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+       {{ message|safe }}
+      {% endfor %}
+    </ul>
+  {% endif %}
+</p>
 <table id="topicsTable" class="display" style="width:100%">
         <thead>
             <tr>

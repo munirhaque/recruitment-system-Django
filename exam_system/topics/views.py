@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from topics.models import Topic
 from questions.models import Question, Options 
+from django.contrib import messages
+from django.db import IntegrityError
 
 # Create your views here.
 def index(request):
@@ -23,9 +25,15 @@ def add(request):
 def store(request):
 	if request.method == 'POST':
 	  topic_name = request.POST['topic_name']
-	  Topic.objects.create(topic_name=topic_name)
-	  success_msg = {'msg':'success'}
-	  return redirect('topics/', context=success_msg)
+	  try:
+	  	Topic.objects.create(topic_name=topic_name)
+	  	messages.success(request, '<div class="alert alert-success">Topic Added Successfully!</div>')
+	  	return redirect('topics/')
+	  except IntegrityError:
+	  	messages.success(request, '<div class="alert alert-danger">Topic Already added with the same name!</div>')
+	  	return redirect('topics/')
+
+	  
 
 
 def edit(request, topic_id):
@@ -38,14 +46,18 @@ def edit(request, topic_id):
 def topic_update(request, topic_id):
 	if request.method == 'POST':
 		topic_name = request.POST['topic_name']
-		Topic.objects.filter(pk=topic_id).update(topic_name=topic_name)
-		return HttpResponse(index(request))
+		try:
+			Topic.objects.filter(pk=topic_id).update(topic_name=topic_name)
+			return redirect('topics')
+		except IntegrityError:
+	  		messages.success(request, '<div class="alert alert-danger">Topic Already added with the same name!</div>')
+	  		return redirect('topics')
 
 
 
 def destroy(request, topic_id):
 	Topic.objects.filter(id=topic_id).delete()
-	success_msg = {'msg':'success'}
+	messages.success(request, '<div class="alert alert-success">Topic Deleted Successfully!</div>')
 	return HttpResponse(index(request))
 
 

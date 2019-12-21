@@ -28,17 +28,11 @@
             <tr>
                 <th>S/N</th>
                 <th>Exam </th>
-                <th>View Report</th>
-                <th>View Questions</th>
                 <th>Set Questions</th>
                 <th>Number Of Questions</th>
-                
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Time Duration</th>
-                
-                
-                <th>Edit</th>
                 <th>Delete</th>
                 
             </tr>
@@ -48,15 +42,12 @@
                 <tr>
                       <td>{{ forloop.counter }}</td>
                       <td>{{exam.name}}</td>
-                      <td><a href="#" class="btn btn-info">View Report</a></td>
-                      <td><a href="#" class="btn btn-info">View Questions</a></td>
                       <td><a href="{% url 'select_topic' exam.id %}" class="btn btn-info">Set Questions</a></td>
                       <td>{{exam.number_of_question}}</td>
                       <td>{{exam.start_date}}</td>
                       <td>{{exam.end_date}}</td>
                       <td>{{exam.time_duration}}</td>                   
-                      <td><a href="#" class="btn btn-warning">Edit</a></td>
-                      <td><a href="#" class="btn btn-danger">Delete</a></td>
+                      <td><a href="{% url 'exam_delete' exam.id %}" class="btn btn-danger">Delete</a></td>
                   </tr>
           {% endfor %}
         </tbody>
@@ -64,16 +55,12 @@
             <tr>
                 <th>S/N</th>
                 <th>Exam </th>
-                <th>View Report</th>
-                <th>Number Of Questions</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Time Duration</th>
                 <th>View Questions</th>
                 <th>Set Questions</th>
-                <th>Edit</th>
                 <th>Delete</th>
-
             </tr>
         </tfoot>
     </table>

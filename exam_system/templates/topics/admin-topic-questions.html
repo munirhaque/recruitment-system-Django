@@ -23,6 +23,15 @@
 <p>
   <a href="{% url 'question_add' topic.id %}" class="btn btn-info topic-add">Add Questions</a>
 </p>
+<p>
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+       {{ message|safe }}
+      {% endfor %}
+    </ul>
+  {% endif %}
+</p>
 <table id="topicsTable" class="display" style="width:100%">
         <thead>
             <tr>
@@ -41,8 +50,8 @@
                       <td>{{question.question}}</td>
                       <td><a href="{% url 'option_add' topic.id question.id %}" class="btn btn-primary">Manage Options</a></td>
                       <td><a href="{% url 'set_answer' topic.id question.id %}" class="btn btn-info">Set Answer</a></td>
-                      <td><a href="#" class="btn btn-warning">Update</a></td>
-                      <td><a href="#" class="btn btn-danger">Delete</a></td>
+                      <td><a href="{% url 'question_edit' topic.id question.id %}" class="btn btn-warning">Update</a></td>
+                      <td><a href="{% url 'destroy' topic.id question.id%}" class="btn btn-danger">Delete</a></td>
                   </tr>
           {% endfor %}
         </tbody>

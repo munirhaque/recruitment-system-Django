@@ -10,7 +10,8 @@
 
 {% block breadcrumb %}
       <li><a href="#"><i class="fa fa-dashboard"></i> Topics</a></li> 
-      <li><a href="#"><i class="fa fa-dashboard"></i> Add Topics</a></li>
+      <li><a href="#"><i class="fa fa-dashboard"></i> Questions</a></li>
+      <li><a href="#"><i class="fa fa-dashboard"></i> Set Answer</a></li>
 {% endblock %}
 
 {% block content-title %} Set Answer{% endblock %}
@@ -21,15 +22,23 @@
 </p>
   <form action="{% url 'select_answer' topic_id question.id %}" method="post">
     {% csrf_token %}
-    {% for option in options%}
-    <div class="radio">
-      <label><input type="radio" name="answer" value="{{option.id}}" {% if option.is_answer == 1 %} 
-        checked {% endif %}>{{option.option}}</label>
+    {% if options %}
+      {% for option in options%}
+        <div class="radio">
+          <label><input type="radio" name="answer" value="{{option.id}}" {% if option.is_answer == 1 %} 
+            checked {% endif %}>{{option.option}}</label>
+        </div>
+      {% endfor %}
+      <div class="form-group">
+        <input type="submit" class="btn btn-info" value="Set As Answer" 
+         >
     </div>
-    {% endfor %}
-    <div class="form-group">
-        <input type="submit" class="btn btn-info" value="Set As Answer">
-    </div>
+    {% else %}
+      <b>No options to select</b>
+    {% endif %}
+       
+    
+    
   </form>
 <br>
 {% endblock %}

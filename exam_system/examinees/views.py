@@ -41,11 +41,7 @@ def start_exam(request, exam_id, name, email):
 				 }
 
 	return render(request, 'examinees/demo.html', context=exam_data)
-	#for q in questions:
-	#return HttpResponse(options.option)
-	#return HttpResponse(str(exam_id) + "<br/>" + name + "<br/>" + email)
-		# exam_data = {'exam_id':exam_id, 'name':name, 'email':email}
-		# return render(request, 'examinees/examinees-rules.html', context=exam_data)
+
 
 def submit_answer(request, exam_id, examinee_id, question_id, counter ):
 
@@ -84,5 +80,5 @@ def view_report(request, exam_id, examinee_id):
 	exam_report = cursor.fetchall()
 
 	exam_data = {'exam_report':exam_report}
-	#return HttpResponse(exam_report)
 	return render(request, 'examinees/examinee-exam-report.html', context=exam_data)
+
